@@ -1,8 +1,12 @@
 # macOS Setup
 
+## ZSH Shell Configuration
+
+All sensitive variables should be stored in `~/.config/zsh/secrets.zsh` — this file is loaded in the current setup so everything works as expected.
+
 ## Git Configuration
 
-Create `.gitconfig.local` file whcih has sensitive data:
+Create `.gitconfig.local` file for sensitive data:
 
 ```
 [user]

@@ -1,72 +1,24 @@
-# Aliases
-alias zshrc='code ~/.zshrc' # open zshrc in vscode
-alias ls='eza -aF --git --icons' # modern ls with exa
-alias sl='eza -aF --git --icons'
-alias l='eza -lahF --git --icons'
-alias ll='eza -lahF --git --icons'
-alias src='source ~/.zshrc' # reload
-alias man=batman # man pages syntax highlighting
-alias bat="bat --theme=\$(defaults read -globalDomain AppleInterfaceStyle &> /dev/null && echo Dracula || echo GitHub)" # cat syntax highlighting
-alias c=clear
-alias d=docker
-alias dc=docker-compose
-alias bbd='brew bundle dump --force --describe'
-alias trail='<<<${(F)path}'
-# alias python='python3'
-# alias pip='pip3'
-alias rm=trash
+ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
-alias nr='npm run'
-alias ni="npm install"
-alias nid="npm install -D"
-alias nrs='npm run start'
-alias nrd='npm run dev'
-alias nrb='npm run build'
-alias nrt='npm run test'
-alias pn='pnpm'
+zsh_config_files=(
+  path
+  environment
+  aliases
+  functions
+  completion
+)
 
-export EDITOR="code --wait"
-export VISUAL="code --wait"
+for zsh_config_file in "${zsh_config_files[@]}"; do
+  config_path="$ZSH_CONFIG_DIR/$zsh_config_file.zsh"
+  [[ -r "$config_path" ]] && source "$config_path"
+done
 
-# Functions
-# Create a directory and cd into it
-function mkcd() {
-  mkdir -p $@ && cd $_;
-}
+# Machine-specific environment variables and secrets.
+[[ -r "$ZSH_CONFIG_DIR/secrets.zsh" ]] &&
+  source "$ZSH_CONFIG_DIR/secrets.zsh"
 
-# Homebrew cask options
-export HOMEBREW_CASK_OPTS="--no-quarantine"
-# export HOMEBREW_NO_AUTO_UPDATE=1
-export NULLCMD=bat
+# Tool initialization must come last.
+[[ -r "$ZSH_CONFIG_DIR/tools.zsh" ]] &&
+  source "$ZSH_CONFIG_DIR/tools.zsh"
 
-# Homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Starship
-eval "$(starship init zsh)"
-
-# Path variables
-typeset -U path
-
-export PATH="$HOME/.local/bin:$PATH"
-
-# ZSH Syntax Highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# Node Version Manager
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# Java
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"
-alias java21='export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home"; java -version'
-alias java25='export JAVA_HOME="/Library/Java/JavaVirtualMachines/temurin-25.jdk/Contents/Home"; java -version'
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Zoxide
-eval "$(zoxide init zsh)"
-
-# Lumi
-source "$HOME/lumi-keys.zsh"
+unset ZSH_CONFIG_DIR zsh_config_files zsh_config_file config_path
