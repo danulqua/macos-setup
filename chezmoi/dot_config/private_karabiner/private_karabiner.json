@@ -1,0 +1,487 @@
+{
+    "global": { "show_in_menu_bar": false },
+    "profiles": [
+        {
+            "complex_modifications": {
+                "rules": [
+                    {
+                        "description": "Copy the URL of the currently open browser tab with shift+command+C",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.google\\.Chrome",
+                                            "^com\\.apple\\.Safari",
+                                            "^org\\.mozilla\\.firefox"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "c",
+                                    "modifiers": { "mandatory": ["left_command", "left_shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "l",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "key_code": "escape" }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "c",
+                                        "modifiers": ["left_command"]
+                                    },
+                                    { "key_code": "escape" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "manipulators": [
+                            {
+                                "description": "Change right_command to command+control+option+shift",
+                                "from": {
+                                    "key_code": "right_command",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_shift",
+                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Print Screen to Screenshot",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "print_screen" },
+                                "to": [
+                                    {
+                                        "key_code": "4",
+                                        "modifiers": ["left_shift", "left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Swap fn keys in code editors",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f1",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f1",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f2",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f2",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f3",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f3",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f4",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f4",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f5",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f5",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f6",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f6",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f7",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f7",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f8",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f8",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f9",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f9",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f10",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f10",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f11",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f11",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.jetbrains\\.WebStorm",
+                                            "^com\\.jetbrains\\.pycharm",
+                                            "^com\\.microsoft\\.VSCode",
+                                            "^com\\.microsoft\\.VSCodeInsiders",
+                                            "^dev\\.zed\\.Zed"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f12",
+                                    "modifiers": { "optional": ["control", "shift", "option", "command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f12",
+                                        "modifiers": ["fn"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "End to command+right",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "end" },
+                                "to": [
+                                    {
+                                        "key_code": "right_arrow",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Home to command+left",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "home" },
+                                "to": [
+                                    {
+                                        "key_code": "left_arrow",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "devices": [
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 816,
+                        "vendor_id": 13364
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_command" }]
+                        }
+                    ],
+                    "treat_as_built_in_keyboard": true
+                },
+                {
+                    "fn_function_keys": [
+                        {
+                            "from": { "key_code": "f4" },
+                            "to": [{ "apple_vendor_keyboard_key_code": "launchpad" }]
+                        },
+                        {
+                            "from": { "key_code": "f5" },
+                            "to": [{ "apple_vendor_keyboard_key_code": "spotlight" }]
+                        }
+                    ],
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 816,
+                        "vendor_id": 13364
+                    },
+                    "simple_modifications": [
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_option" }]
+                        },
+                        {
+                            "from": { "key_code": "left_option" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_option" }]
+                        },
+                        {
+                            "from": { "key_code": "right_option" },
+                            "to": [{ "key_code": "right_command" }]
+                        }
+                    ],
+                    "treat_as_built_in_keyboard": true
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 591,
+                        "vendor_id": 1452
+                    },
+                    "ignore": false
+                }
+            ],
+            "name": "Default profile",
+            "selected": true,
+            "virtual_hid_keyboard": {
+                "country_code": 0,
+                "keyboard_type_v2": "ansi"
+            }
+        }
+    ]
+}
