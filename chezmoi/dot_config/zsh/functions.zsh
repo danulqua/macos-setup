@@ -31,6 +31,5 @@ brew-dump() {
 
   brew bundle dump \
     --file="$repo_root/Brewfile" \
-    --force \
-    --describe
+    --force
 }

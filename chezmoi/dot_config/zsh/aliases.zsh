@@ -12,7 +12,6 @@ alias l='eza -lahF --git --icons'
 alias ll='l'
 alias man='batman' # brew "bat-extras"
 alias c='clear'
-alias rm='trash' # brew "trash"
 
 # Docker
 alias d='docker'
