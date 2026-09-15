@@ -1,5 +1,52 @@
 # macOS Setup
 
+An idempotent bootstrap for a new Mac: Homebrew packages and applications,
+chezmoi-managed dotfiles, mise runtimes, and macOS preferences.
+
+## Install
+
+Run this command on a new Mac:
+
+```bash
+/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/danulqua/macos-setup/main/bootstrap.zsh)"
+```
+
+The bootstrap will:
+
+1. Install Xcode Command Line Tools when needed.
+2. Install Homebrew and chezmoi.
+3. Clone or fast-forward this repository in chezmoi's source directory.
+4. Install everything declared in `Brewfile`.
+5. Apply the dotfiles in `chezmoi/`.
+6. Install the runtimes declared in the global mise configuration.
+7. Apply the settings and keyboard shortcuts in `macos/`.
+
+It is safe to run the command again. Existing repository changes are never
+discarded: the update stops if it cannot be fast-forwarded.
+
+To omit a stage, pass one or more flags after the command string:
+
+```bash
+/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/danulqua/macos-setup/main/bootstrap.zsh)" -- --skip-macos
+```
+
+Available flags are `--skip-packages`, `--skip-dotfiles`, `--skip-runtimes`, and
+`--skip-macos`.
+
+After installation, open a new terminal and verify the result:
+
+```bash
+"$(git -C "$(chezmoi source-path)" rev-parse --show-toplevel)/scripts/check.zsh"
+```
+
+## Manual setup
+
+Application sign-ins, GitHub authentication, and secrets intentionally remain
+manual. The bootstrap creates empty, private files for the local values:
+
+- `~/.gitconfig.local`
+- `~/.config/zsh/secrets.zsh`
+
 ## SSH Keys
 
 ### 1. Run command:
