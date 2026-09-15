@@ -3,6 +3,12 @@
 An idempotent bootstrap for a new Mac: Homebrew packages and applications,
 chezmoi-managed dotfiles, mise runtimes, and macOS preferences.
 
+## Before installation
+
+Sign in to the Mac App Store. The `Brewfile` uses `mas` to install App Store
+applications, including Xcode, and that stage will fail without an active
+App Store account.
+
 ## Install
 
 Run this command on a new Mac:
@@ -60,77 +66,89 @@ ssh-keygen -t ed25519 -a 100 -f ~/.ssh/github.com -q -N "" -C "your_email@exampl
     - Used when protecting the private key with a passphrase
     - Higher number = slower brute-force attacks
     - Default is usually **16**, so **100 is stronger**
-    
+
     Since this command sets an **empty passphrase**, this option effectively has **no practical effect** here.
-    
+
 - `-f ~/.ssh/github.com` - specifies the output file
 - `-q` - run `ssh-keygen` command silently
 - `-N ''` - new passphrase, empty in this case
-- `-C "your_email@example.com"` - Provides a new comment. If not provided, your host machine name is used like `username@username-macbook-pro` . You can provide your work email here
+- `-C "your_email@example.com"` - provides a comment. If omitted, the host machine name is used, such as `username@username-macbook-pro`.
 
-### 2. Create config file:
+### 2. Create the config file:
 
 ```bash
 touch ~/.ssh/config
 ```
 
-### 3. Run command to configure specific host:
+### 3. Configure the GitHub host:
 
 ```bash
 echo "IgnoreUnknown UseKeychain
 Host github.com
-  User git
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/github.com" >> ~/.ssh/config
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/github.com" >> ~/.ssh/config
 ```
 
-Or manually put the following content in `~/.ssh/config`:
+Or manually add the following content to `~/.ssh/config`:
 
-```bash
+```sshconfig
 IgnoreUnknown UseKeychain
+
 Host github.com
-  User git
-  AddKeysToAgent yes
-  UseKeychain yes
-  IdentityFile ~/.ssh/github.com
+  User git
+  AddKeysToAgent yes
+  UseKeychain yes
+  IdentityFile ~/.ssh/github.com
 ```
 
-### 4. Add host to known hosts
+### 4. Add GitHub to known hosts:
 
 ```bash
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 ```
 
-### 5. Copy and use the public key:
+### 5. Copy the public key:
 
 ```bash
 cat ~/.ssh/github.com.pub
 ```
 
+Add the displayed public key to your GitHub account.
+
 ## ZSH Shell Configuration
 
-All sensitive variables should be stored in `~/.config/zsh/secrets.zsh` — this file is loaded in the current setup so everything works as expected.
+Store sensitive environment variables in:
+
+```text
+~/.config/zsh/secrets.zsh
+```
+
+This file is loaded automatically by the managed `.zshrc`.
 
 ## Git Configuration
 
-Create `.gitconfig.local` file for sensitive data:
+Add your identity to `~/.gitconfig.local`:
 
-```
+```gitconfig
 [user]
   email = johndoe@gmail.com
   name = John Doe
 ```
 
-Optionally: add path to other `.gitconfig` files, for example, for cases when you need to work from other email or just have different settings:
+You can optionally use a different identity for repositories in a particular
+directory:
 
-```
+```gitconfig
 [includeIf "gitdir:~/dev/work/"]
   path = ~/dev/work/.gitconfig-work
 ```
 
-`~/dev/work/.gitconfig-work`:
-```
+Example `~/dev/work/.gitconfig-work`:
+
+```gitconfig
 [user]
   email = johndoework@gmail.com
+  name = John Doe
 ```
