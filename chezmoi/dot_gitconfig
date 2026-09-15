@@ -1,8 +1,20 @@
 [core]
-  editor = code -n -w
+  editor = code --wait
 
 [pull]
-  rebase = false
+  ff = only
+
+[push]
+  autoSetupRemote = true
+
+[fetch]
+  prune = true
+
+[rerere]
+  enabled = true
+
+[branch]
+  sort = -committerdate
 
 [diff]
   tool = vscode
@@ -21,93 +33,44 @@
 
 [mergetool]
   prompt = false
-  
+  keepBackup = false
+
 [alias]
   p = push
   pl = pull
-  co = checkout
-  cob = checkout -b
+
+  sw = switch
+  swc = switch -c
+
   a = add -A
-  res = reset --hard
   c = commit
   cm = commit -m
-  cam = commit --amend -m
   can = commit --amend --no-edit
-  ac = !git a && git c
-  acm = !git a && git cm
-  acam = !git a && git cam
-  acan = !git a && git can
-  mrg = merge --no-ff
+
+  ac = !git add -A && git commit
+  acm = !git add -A && git commit -m
+  acan = !git add -A && git commit --amend --no-edit
+
   st = status --short --branch
   last = log -1 HEAD --stat
   d = diff
-  br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) %(color:bold blue)[%(authorname)]' --sort=-committerdate
-  lg = log --pretty=format:\"%C(red)%h%Creset -%C(yellow)%d%Creset %s %C(green)(%cr) %C(bold blue)[%an]\" --abbrev-commit
-  glg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue) [%an]%Creset' --abbrev-commit
+
+  br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) %(color:bold blue)[%(authorname)]'
+
+  lg = log --graph --decorate --pretty=format:'%C(red)%h%Creset %C(yellow)%d%Creset %s %C(green)(%cr)%Creset %C(bold blue)[%an]%Creset' --abbrev-commit
+
+  cfg = config --list --show-origin
   cfgg = config --global --list
   cfgl = config --local --list
+
   type = cat-file -t
   dump = cat-file -p
 
-# URL ALIASES
-# -----------
-# Alias for Dracula Org repositories
 [url "https://github.com/dracula/"]
   insteadOf = dracula://
-# COLORS
-# ------
-# Dracula Dark Theme
+
 [color]
   ui = auto
-  
-[color "branch"]
-  current = cyan bold reverse
-  local = white
-  plain =
-  remote = cyan
 
-[color "diff"]
-  commit =
-  func = cyan
-  plain =
-  whitespace = magenta reverse
-  meta = white
-  frag = cyan bold reverse
-  old = red
-  new = green
-
-[color "grep"]
-  context =
-  filename =
-  function =
-  linenumber = white
-  match =
-  selected =
-  separator =
-
-[color "interactive"]
-  error =
-  header =
-  help =
-  prompt =
-
-[color "status"]
-  added = green
-  changed = yellow
-  header =
-  localBranch =
-  nobranch =
-  remoteBranch = cyan bold
-  unmerged = magenta bold reverse
-  untracked = red
-  updated = green bold
-
-# INCLUDES
-# --------
-# Local/Private config goes in the include
-# At least
-# [user]
-#   email =
-#   name = 
 [include]
   path = ~/.gitconfig.local
