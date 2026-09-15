@@ -5,44 +5,13 @@ set -euo pipefail
 
 readonly SCRIPT_DIR="${0:A:h}"
 readonly REPOSITORY_ROOT="${SCRIPT_DIR:h}"
-readonly PROGRAM_NAME="${0:t}"
 
 source "${SCRIPT_DIR}/lib.zsh"
 
-skip_packages=false
-skip_dotfiles=false
-skip_runtimes=false
-skip_macos=false
-
-usage() {
-  print "Usage: ${PROGRAM_NAME} [options]"
-  print ""
-  print "Options:"
-  print "  --skip-packages   Do not run Homebrew Bundle"
-  print "  --skip-dotfiles   Do not apply chezmoi-managed files"
-  print "  --skip-runtimes   Do not install tools declared in mise"
-  print "  --skip-macos      Do not apply macOS settings and shortcuts"
-  print "  -h, --help        Show this help"
-}
-
-while (( $# > 0 )); do
-  case "$1" in
-    --skip-packages) skip_packages=true ;;
-    --skip-dotfiles) skip_dotfiles=true ;;
-    --skip-runtimes) skip_runtimes=true ;;
-    --skip-macos) skip_macos=true ;;
-    -h|--help)
-      usage
-      exit 0
-      ;;
-    *)
-      print -u2 "Unknown option: $1"
-      usage >&2
-      exit 2
-      ;;
-  esac
-  shift
-done
+readonly skip_packages="${MACOS_SETUP_SKIP_PACKAGES:-false}"
+readonly skip_dotfiles="${MACOS_SETUP_SKIP_DOTFILES:-false}"
+readonly skip_runtimes="${MACOS_SETUP_SKIP_RUNTIMES:-false}"
+readonly skip_macos="${MACOS_SETUP_SKIP_MACOS:-false}"
 
 [[ "$(uname -s)" == "Darwin" ]] || fail "This installer supports macOS only."
 [[ -f "${REPOSITORY_ROOT}/Brewfile" ]] || fail "Brewfile not found in ${REPOSITORY_ROOT}."
@@ -82,6 +51,7 @@ if [[ "${skip_dotfiles}" == false ]]; then
   mkdir -p "${HOME}/.config/zsh"
   touch "${HOME}/.config/zsh/secrets.zsh" "${HOME}/.gitconfig.local"
   chmod 600 "${HOME}/.config/zsh/secrets.zsh" "${HOME}/.gitconfig.local"
+
   success "Dotfiles are applied"
 fi
 

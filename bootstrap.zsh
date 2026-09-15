@@ -5,6 +5,12 @@ set -euo pipefail
 
 readonly REPOSITORY="danulqua/macos-setup"
 readonly REPOSITORY_URL="https://github.com/${REPOSITORY}.git"
+readonly PROGRAM_NAME="bootstrap.zsh"
+
+skip_packages=false
+skip_dotfiles=false
+skip_runtimes=false
+skip_macos=false
 
 info() {
   print -- "\n==> $*"
@@ -14,6 +20,37 @@ fail() {
   print -u2 -- "Error: $*"
   exit 1
 }
+
+usage() {
+  print "Usage: ${PROGRAM_NAME} [options]"
+  print ""
+  print "Options:"
+  print "  --skip-packages   Do not run Homebrew Bundle"
+  print "  --skip-dotfiles   Do not apply chezmoi-managed files"
+  print "  --skip-runtimes   Do not install tools declared in mise"
+  print "  --skip-macos      Do not apply macOS settings and shortcuts"
+  print "  -h, --help        Show this help"
+}
+
+while (( $# > 0 )); do
+  case "$1" in
+    --skip-packages) skip_packages=true ;;
+    --skip-dotfiles) skip_dotfiles=true ;;
+    --skip-runtimes) skip_runtimes=true ;;
+    --skip-macos) skip_macos=true ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      print -u2 "Unknown option: $1"
+      usage >&2
+      exit 2
+      ;;
+  esac
+
+  shift
+done
 
 if [[ "$(uname -s)" != "Darwin" ]]; then
   fail "This bootstrap supports macOS only."
@@ -69,4 +106,9 @@ else
   repository_root="$(git -C "${source_path}" rev-parse --show-toplevel)"
 fi
 
-exec "${repository_root}/scripts/install.zsh" "$@"
+export MACOS_SETUP_SKIP_PACKAGES="${skip_packages}"
+export MACOS_SETUP_SKIP_DOTFILES="${skip_dotfiles}"
+export MACOS_SETUP_SKIP_RUNTIMES="${skip_runtimes}"
+export MACOS_SETUP_SKIP_MACOS="${skip_macos}"
+
+exec "${repository_root}/scripts/install.zsh"
