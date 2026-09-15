@@ -231,7 +231,7 @@ vscode "editorconfig.editorconfig"
 # --- Themes & Appearance ------------------------------------------------------
 
 vscode "akamud.vscode-theme-onelight"
-vscode "dracula-theme-pro.theme-dracula-pro"
 vscode "naumovs.color-highlight"
 vscode "pkief.material-icon-theme"
 vscode "zhuangtongfa.material-theme"
+# vscode "dracula-theme-pro.theme-dracula-pro" # Should be installed externally: https://draculatheme.gumroad.com/l/dracula-pro
