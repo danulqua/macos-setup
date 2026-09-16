@@ -2,7 +2,6 @@ ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 zsh_config_files=(
   path
-  environment
   aliases
   functions
   completion
