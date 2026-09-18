@@ -8,9 +8,4 @@ elif [[ -x /usr/local/bin/brew ]]; then
 fi
 
 # Personal scripts should take precedence.
-path=(
-  "$HOME/.local/bin"
-  $path
-)
-
-export PATH
+export PATH="$HOME/.local/bin:$PATH"

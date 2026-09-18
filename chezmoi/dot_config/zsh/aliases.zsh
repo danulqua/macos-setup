@@ -12,6 +12,17 @@ alias l='eza -lahF --git --icons'
 alias ll='l'
 alias man='batman' # brew "bat-extras"
 alias c='clear'
+alias tree='eza -T --icons'
+
+# Core utilities
+alias grep='rg --color=auto'
+alias diff='diff --color=auto'
+alias df='df -h'
+
+# Navigation
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 
 # Docker
 alias d='docker'
