@@ -12,6 +12,8 @@ brew "bat-extras"
 brew "eza"
 # Like neofetch, but much faster because written mostly in C
 brew "fastfetch"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Search tool like grep and The Silver Searcher
@@ -22,8 +24,8 @@ brew "starship"
 brew "tree"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# UNIX shell (command interpreter)
-brew "zsh"
+# Fish-like fast/unobtrusive autosuggestions for zsh
+brew "zsh-autosuggestions"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 
