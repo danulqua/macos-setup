@@ -44,17 +44,29 @@ fi
 
 unset XCODE_DEVELOPER_DIR
 
+# Install the system-wide zshenv configuration file.
+sudo cp "${REPOSITORY_ROOT}/system/zshenv" /etc/zshenv
+sudo chmod 644 /etc/zshenv
+sudo chown root:wheel /etc/zshenv
+
+# Create XDG zsh directories
+mkdir -p \
+  "${HOME}/.config/zsh" \
+  "${HOME}/.cache/zsh" \
+  "${HOME}/.local/state/zsh"
+
+# Apply dotfiles
 if [[ "${skip_dotfiles}" == false ]]; then
   heading "Applying dotfiles"
   chezmoi apply --source "${REPOSITORY_ROOT}/chezmoi"
 
-  mkdir -p "${HOME}/.config/zsh"
   touch "${HOME}/.config/zsh/secrets.zsh" "${HOME}/.gitconfig.local"
   chmod 600 "${HOME}/.config/zsh/secrets.zsh" "${HOME}/.gitconfig.local"
 
   success "Dotfiles are applied"
 fi
 
+# Apply mise runtimes
 if [[ "${skip_runtimes}" == false ]]; then
   heading "Installing mise runtimes"
   require_command mise
@@ -62,6 +74,7 @@ if [[ "${skip_runtimes}" == false ]]; then
   success "mise runtimes are installed"
 fi
 
+# Apply macOS settings
 if [[ "${skip_macos}" == false ]]; then
   heading "Applying macOS settings"
   "${REPOSITORY_ROOT}/macos/macos.zsh"

@@ -1,4 +1,7 @@
-ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+# History
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+HISTSIZE=100000
+SAVEHIST=100000
 
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -7,26 +10,30 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
 
+# Shell behaviour
 setopt AUTOCD
 setopt NOBEEP
 setopt NUMERIC_GLOB_SORT  # sort file10 after file9, not after file1
 
+# Load config files
 zsh_config_files=(
   path
+  fzf
   aliases
   functions
   tools
   completion
   highlighting
+  autosuggestions
 )
 
 for zsh_config_file in "${zsh_config_files[@]}"; do
-  config_path="$ZSH_CONFIG_DIR/$zsh_config_file.zsh"
+  config_path="$ZDOTDIR/$zsh_config_file.zsh"
   [[ -r "$config_path" ]] && source "$config_path"
 done
 
 # Machine-specific environment variables and secrets.
-[[ -r "$ZSH_CONFIG_DIR/secrets.zsh" ]] &&
-  source "$ZSH_CONFIG_DIR/secrets.zsh"
+[[ -r "$ZDOTDIR/secrets.zsh" ]] &&
+  source "$ZDOTDIR/secrets.zsh"
 
-unset ZSH_CONFIG_DIR zsh_config_files zsh_config_file config_path
+unset zsh_config_files zsh_config_file config_path

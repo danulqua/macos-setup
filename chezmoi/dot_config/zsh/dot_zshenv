@@ -1,0 +1,12 @@
+# XDG base directories
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+# Editor used by git, crontab etc
+export EDITOR="code --wait"
+export VISUAL="$EDITOR"
+
+# GPG
+export GPG_TTY=$(tty)
