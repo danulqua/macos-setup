@@ -21,6 +21,7 @@ zsh_config_files=(
   fzf
   aliases
   functions
+  openai
   tools
   completion
   highlighting
