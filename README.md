@@ -96,21 +96,6 @@ After installation:
 3. Create and register your GitHub SSH key.
 4. Sign in to installed applications.
 
-OpenAI work credentials are profile-specific and should not be placed in the
-general Zsh secrets file. See [OpenAI profile switcher](OPENAI_PROFILE_SWITCHER.md)
-for the local-only setup.
-
-## OpenAI profile switcher
-
-The dotfiles include an `openai-env` utility that keeps personal and work
-ChatGPT/Codex state separate. It installs the `openai-personal`, `openai-work`,
-and `openai-status` shell commands.
-
-Credentials, authentication state, cookies, and profile databases remain local
-to each Mac and are intentionally excluded from this repository. See
-[OPENAI_PROFILE_SWITCHER.md](OPENAI_PROFILE_SWITCHER.md) for usage, bootstrap
-steps, and the complete list of local-only files.
-
 ## Zsh Configuration
 
 Zsh follows the XDG directory layout instead of storing its configuration
@@ -193,7 +178,6 @@ completion.zsh
 functions.zsh
 fzf.zsh
 highlighting.zsh
-openai.zsh
 path.zsh
 tools.zsh
 ```
@@ -299,16 +283,14 @@ Example `~/dev/work/.gitconfig-work`:
 ```text
 .
 ├── Brewfile
-├── OPENAI_PROFILE_SWITCHER.md
 ├── bootstrap.zsh
 ├── chezmoi/
-│   ├── dot_config/
-│   │   ├── bat/
-│   │   ├── ghostty/
-│   │   ├── karabiner/
-│   │   ├── mise/
-│   │   └── zsh/
-│   └── dot_local/
+│   └── dot_config/
+│       ├── bat/
+│       ├── ghostty/
+│       ├── karabiner/
+│       ├── mise/
+│       └── zsh/
 ├── macos/
 ├── scripts/
 │   ├── check.zsh
