@@ -40,6 +40,12 @@ alias nrt='npm run test'
 # pnpm
 alias pn='pnpm'
 
+# Claude Code
+alias cc='~/.lumi/lumi-start-claude.sh' # Corporate LUMI gateway ('w' for work)
+
+# Codex
+alias codex-w='~/.lumi/lumi-start-codex.sh' # Corporate LUMI gateway ('w' for work)
+
 # Display PATH entries one per line
 alias trail='print -l -- $path'
 
