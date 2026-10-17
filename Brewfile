@@ -46,6 +46,8 @@ brew "chezmoi"
 brew "gh"
 # Polyglot runtime manager (asdf rust clone)
 brew "mise"
+# Execute binaries from Python packages in isolated environments
+brew "pipx"
 
 
 # --- AI -----------------------------------------------------------------------
@@ -90,6 +92,8 @@ cask "google-chrome"
 
 # --- Development --------------------------------------------------------------
 
+# Electronics prototyping platform
+cask "arduino-ide"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
 # App to build and share containerised applications and microservices
@@ -104,6 +108,8 @@ cask "zed"
 
 # --- AI -----------------------------------------------------------------------
 
+# Anthropic's official Claude AI desktop app
+cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
@@ -160,6 +166,8 @@ cask "betterdisplay"
 cask "cleanshot"
 # Client for the Google Drive storage service
 cask "google-drive"
+# Homebrew's official GUI
+cask "homebrew-app"
 # Keyboard customiser
 cask "karabiner-elements"
 # Menu bar toolkit with keep-awake, system monitor and volume mixer
@@ -168,6 +176,8 @@ cask "vorssaint"
 
 # --- Fonts --------------------------------------------------------------------
 
+# JetBrains Mono
+cask "font-jetbrains-mono"
 # JetBrains Mono Nerd Font
 cask "font-jetbrains-mono-nerd-font"
 
@@ -195,9 +205,11 @@ vscode "zignd.html-css-class-completion"
 vscode "arjun.swagger-viewer"
 vscode "grapecity.gc-excelviewer"
 vscode "jock.svg"
+vscode "mechatroner.rainbow-csv"
 vscode "mikeburgh.xml-format"
 vscode "mikestead.dotenv"
 vscode "redhat.vscode-yaml"
+vscode "tamasfe.even-better-toml"
 vscode "vscjava.vscode-java-pack"
 vscode "yzhang.markdown-all-in-one"
 
