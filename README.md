@@ -320,6 +320,39 @@ Example `~/dev/work/.gitconfig-work`:
   name = John Doe
 ```
 
+## Claude Code Configuration
+
+Only a small, stable part of the Claude Code user configuration is managed by
+chezmoi, under:
+
+```text
+chezmoi/dot_claude/
+```
+
+and applied to:
+
+```text
+~/.claude/
+```
+
+* `statusline.sh` — the status line script, copied as is.
+* `settings.json` — produced by `modify_settings.json`, which merges only the
+  personal preferences it lists (`model`, `effortLevel`, `alwaysThinkingEnabled`,
+  `showClearContextOnPlanAccept`, `tui`, `statusLine`) into the existing file and
+  leaves every other key untouched. It requires `jq`, which ships with macOS.
+
+`statusLine` points at `~/.claude/statusline.sh`. Tools that wrap the status line
+(such as ai-cost) re-wrap it when their installer runs, so re-run it after
+`chezmoi apply` if the wrapper was replaced.
+
+Keys written by other tools or by Claude Code itself (`hooks`, `env`,
+`enabledPlugins`) are intentionally not managed, so `chezmoi apply` never
+overwrites them. Re-running `/model` or `/config` in Claude Code changes the
+managed preferences until the next apply restores the values from the repository.
+
+Everything else in `~/.claude/` (history, sessions, plugins, caches, and the
+`CLAUDE.md`, skills, and commands written by installers) is not managed.
+
 ## Repository structure
 
 ```text
@@ -327,6 +360,7 @@ Example `~/dev/work/.gitconfig-work`:
 ├── Brewfile
 ├── bootstrap.zsh
 ├── chezmoi/
+│   ├── dot_claude/
 │   └── dot_config/
 │       ├── bat/
 │       ├── ghostty/

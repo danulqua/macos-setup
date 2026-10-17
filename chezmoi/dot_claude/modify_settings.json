@@ -1,0 +1,23 @@
+#!/bin/zsh
+# Merges personal Claude Code preferences into ~/.claude/settings.json.
+# Keys written by other tools (hooks, env, enabledPlugins) and by Claude Code
+# itself are passed through untouched, so `chezmoi apply` never clobbers them.
+# statusLine points at the managed script; aicost re-wraps it on install.
+# chezmoi feeds the current file on stdin and writes stdout.
+set -eu
+
+current="$(cat)"
+[[ -n "${current//[[:space:]]/}" ]] || current='{}'
+
+# Invalid JSON makes jq fail, which aborts the apply instead of overwriting.
+print -r -- "${current}" | jq '. + {
+  "model": "opusplan",
+  "effortLevel": "high",
+  "alwaysThinkingEnabled": true,
+  "showClearContextOnPlanAccept": true,
+  "tui": "fullscreen",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
+}'
