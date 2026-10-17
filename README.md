@@ -72,16 +72,58 @@ After installation, open a new terminal and run:
 The check verifies that:
 
 * core tools are available;
-* chezmoi-managed files match the source state;
-* local Git configuration exists;
-* the local Zsh secrets file exists.
+* chezmoi-managed files match the source state.
+
+It also warns if the local Git configuration or Zsh secrets file is missing
+or empty. These warnings do not fail the check. macOS preferences and keyboard
+shortcuts are not checked.
+
+## macOS preferences
+
+`macos/macos.zsh` applies personal preferences, including:
+
+* automatic light/dark appearance and battery percentage in the menu bar;
+* tap-to-click, keyboard navigation, fast key repeat, and Caps Lock input switching;
+* disabled automatic capitalization, spelling correction, and smart punctuation;
+* Finder file extensions, path and status bars, folders first, and list view;
+* an automatically hidden Dock with no reveal delay or hide/show animation;
+* faster Mission Control animations and the App Exposé trackpad gesture;
+* wallpaper clicks revealing the Desktop only in Stage Manager;
+* immediate title-bar document icons on hover, faster folder opening while
+  dragging, and disabled volume-change feedback sounds;
+* JPEG screenshots on the Desktop without window shadows.
+
+Hot corners require no modifier keys:
+
+| Corner | Action |
+| --- | --- |
+| Top-left | Mission Control |
+| Top-right | Show Desktop |
+| Bottom-left | Launchpad/Apps |
+| Bottom-right | Disabled |
+
+The companion `macos/macos_hotkeys.zsh` disables shortcuts for Spotlight,
+screenshots and the Screenshot app, input-source switching, Launchpad/Apps,
+Notification Center, and direct switching to Desktops 1–10. Review both scripts
+before applying them; running them overwrites the preferences they manage.
+
+To reapply only the macOS settings and shortcuts from your local checkout:
+
+```bash
+"$(git -C "$(chezmoi source-path)" rev-parse --show-toplevel)/macos/macos.zsh"
+```
+
+The script closes System Settings and restarts the preferences service, Dock,
+Finder, and menu bar processes. Some settings require logging out or restarting.
+Use `--skip-macos` during bootstrap to omit this stage.
 
 ## Manual setup
 
 Application sign-ins, GitHub authentication, and secrets intentionally remain
 manual.
 
-The bootstrap creates empty private files for machine-specific values:
+When the dotfiles stage runs, the bootstrap creates private files for
+machine-specific values, preserving any existing contents:
 
 ```text
 ~/.gitconfig.local

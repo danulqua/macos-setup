@@ -44,17 +44,9 @@ set_hotkey 163 false 65535 65535 0
 set_hotkey 32 false 65535 126 8650752
 set_hotkey 33 false 65535 125 8650752
 
-# Switch to Desktop 1-10 with Control+Option+Shift+Command+[1-0].
-typeset -a desktop_char_codes=(49 50 51 52 53 54 55 56 57 48)
-typeset -a desktop_key_codes=(18 19 20 21 23 22 26 28 25 29)
-
-for index in {1..10}; do
-  set_hotkey \
-    "$((117 + index))" \
-    true \
-    "${desktop_char_codes[index]}" \
-    "${desktop_key_codes[index]}" \
-    1966080
+# Disable switching directly to Desktop 1-10.
+for id in {118..127}; do
+  set_hotkey "${id}" false 65535 65535 0
 done
 
 # Disable input-source shortcuts; Caps Lock handles input switching.
