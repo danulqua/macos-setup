@@ -6,13 +6,13 @@ alias zapply='chezmoi apply'
 alias reload='exec zsh'
 
 # Files
-alias ls='eza -aF --git --icons' # brew "eza"
+alias ls='eza -aF --git --icons=auto' # brew "eza"
 alias sl='ls'
-alias l='eza -lahF --git --icons'
+alias l='eza -lahF --git --icons=auto'
 alias ll='l'
 alias man='batman' # brew "bat-extras"
 alias c='clear'
-alias tree='eza -T --icons'
+alias tree='eza -T --icons=auto'
 
 # Core utilities
 alias grep='rg --color=auto'
@@ -41,10 +41,13 @@ alias nrt='npm run test'
 alias pn='pnpm'
 
 # Claude Code
-alias cc='~/.lumi/lumi-start-claude.sh' # Corporate LUMI gateway ('w' for work)
+alias cc="claude"
+alias ccl='lumi-cli run claude --server-url "$LUMI_SERVER_URL" --api-key "$LUMI_API_KEY"'
+alias ccp='lumi-cli run claude --subscription --server-url "$LUMI_SERVER_URL" --api-key "$LUMI_API_KEY"'
 
 # Codex
-alias codex-w='~/.lumi/lumi-start-codex.sh' # Corporate LUMI gateway ('w' for work)
+alias cx="codex"
+alias cxl='lumi-cli run codex --server-url "$LUMI_SERVER_URL" --api-key "$LUMI_API_KEY"'
 
 # Display PATH entries one per line
 alias trail='print -l -- $path'

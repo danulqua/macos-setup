@@ -115,6 +115,7 @@ To reapply only the macOS settings and shortcuts from your local checkout:
 
 The script closes System Settings and restarts the preferences service, Dock,
 Finder, and menu bar processes. Some settings require logging out or restarting.
+Muting the startup sound uses `sudo nvram`, so it prompts for your password.
 Use `--skip-macos` during bootstrap to omit this stage.
 
 ## Manual setup

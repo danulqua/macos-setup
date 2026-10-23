@@ -69,6 +69,8 @@ defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
 defaults write NSGlobalDomain com.apple.springing.delay -float 0.5
 # Do not play feedback sounds when changing the system volume.
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -int 0
+# Mute the startup chime by setting the StartupMute NVRAM flag to 0x01 (requires sudo; takes effect on next boot).
+sudo nvram StartupMute=%01
 
 # Enable tap-to-click on the trackpad.
 defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
@@ -179,8 +181,8 @@ chflags nohidden "${HOME}/Library"
 
 # Place the Dock at the bottom of the screen.
 defaults write com.apple.dock orientation -string "bottom"
-# Set Dock icons to 32 pixels.
-defaults write com.apple.dock tilesize -int 32
+# Set Dock icons to 40 pixels.
+defaults write com.apple.dock tilesize -int 40
 # Use the scale effect when minimizing windows.
 defaults write com.apple.dock mineffect -string "scale"
 # Show indicator dots beneath running apps in the Dock.
@@ -197,6 +199,27 @@ defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0
 # Highlight the item under the pointer in a Dock stack's grid view.
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
+
+# Show the Downloads stack as a grid instead of a fan when it already exists in the Dock.
+(
+  # Export the Dock preferences to a temporary file so one stack can be edited in place.
+  dock_plist="$(mktemp -t dock)"
+  # Remove the temporary file when this subshell exits.
+  trap 'rm -f "${dock_plist}"' EXIT
+  # Save the current Dock preferences as a plist.
+  defaults export com.apple.dock "${dock_plist}"
+  # Walk the folders on the right side of the Dock until no more entries exist.
+  for index in {0..49}; do
+    # Read each folder's label; stop at the first missing entry.
+    label="$(/usr/libexec/PlistBuddy -c "Print :persistent-others:${index}:tile-data:file-label" "${dock_plist}" 2>/dev/null)" || break
+    # Skip every folder except Downloads.
+    [[ "${label}" == "Downloads" ]] || continue
+    # Display the stack as a grid: 1 is fan, 2 is grid, 3 is list, and 0 is automatic.
+    /usr/libexec/PlistBuddy -c "Set :persistent-others:${index}:tile-data:showas 2" "${dock_plist}"
+  done
+  # Load the edited Dock preferences back into the preferences service.
+  defaults import com.apple.dock "${dock_plist}"
+)
 
 # Give each display its own Spaces instead of spanning Spaces across displays.
 defaults write com.apple.spaces spans-displays -bool false
