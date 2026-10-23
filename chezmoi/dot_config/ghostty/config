@@ -7,7 +7,8 @@ unfocused-split-opacity = 0.3
 window-padding-x = 10
 window-padding-y = 10
 
-theme = light:alucard,dark:dracula_pro
+theme = dark:Catppuccin Macchiato,light:Catppuccin Latte
+
 font-family = "JetBrainsMono Nerd Font"
 
 keybind = shift+enter=text:\x1b\r
