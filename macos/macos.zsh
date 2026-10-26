@@ -252,6 +252,13 @@ defaults write com.apple.dock wvous-br-corner -int 0
 defaults write com.apple.dock wvous-br-modifier -int 0
 
 ###############################################################################
+# Power
+###############################################################################
+
+# Keep full display brightness on battery; lessbright 0 disables "Slightly dim the display on battery" (requires sudo).
+sudo pmset -b lessbright 0
+
+###############################################################################
 # Apps
 ###############################################################################
 
